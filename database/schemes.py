@@ -24,3 +24,17 @@ class DrugData(BaseModel):
     description : Text
     base_price : float
     sell_price: float
+
+class DrugDataUpdate(BaseModel):
+    id : int
+    name : str | None = None
+    base_price : float | None = None
+    sell_price : float | None = None
+    description : Text | None = None
+
+class DrugEnter(BaseModel):
+    id: int
+    amount: int
+
+class CheckData(BaseModel):
+    cassir_id: int

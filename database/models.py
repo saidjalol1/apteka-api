@@ -54,8 +54,11 @@ class Check(Base):
     date_created = Column(DateTime, nullable=False)
 
     cashier_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    
     cashier = relationship("Users", back_populates="checks")
+
     items = relationship("CheckItem", back_populates = "check")
+
 
 class CheckItem(Base):
     __tablename__ = "items"
