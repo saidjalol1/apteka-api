@@ -1,4 +1,5 @@
-from typing import Optional, Text
+from typing import Optional, Text, List
+from datetime import datetime
 from pydantic import BaseModel
 from database.models import UserRole
 
@@ -16,6 +17,9 @@ class UsersUpdateData(BaseModel):
     password : str | None = None
     full_name : str | None = None
     role : UserRole | None = None
+
+class UserOut(UserData):
+    id: int
 
 
 class DrugData(BaseModel):
@@ -36,5 +40,28 @@ class DrugEnter(BaseModel):
     id: int
     amount: int
 
+class DrugOut(DrugData):
+    id:int
+
+
 class CheckData(BaseModel):
     cassir_id: int
+
+
+class ItemData(BaseModel):
+    drug_id:int
+    check_id:int
+    amount:int
+
+class ItemsOut(BaseModel):
+    id:int
+    amount:int
+    drug: DrugOut
+
+
+class CheckReturn(BaseModel):
+    id : int
+    check_num : str
+    date_created: datetime
+    cashier : UserOut
+    items: List[ItemsOut] = []

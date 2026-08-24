@@ -1,16 +1,29 @@
 from fastapi import FastAPI , Depends
+from fastapi.middleware.cors import CORSMiddleware
 
 from database.models import Base, Users
 from database.config import engine, get_db
 from database.schemes import UserData, UsersUpdateData
 
 from routes.drugs import drug_route
+from routes.sale import check_route
 
+# CORS -> Cross -origin  recourse sharing
 
 Base.metadata.create_all(engine)
 
 app = FastAPI()
 app.include_router(drug_route)
+app.include_router(check_route)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+
+)
 
 @app.get("/")
 def welcome():
